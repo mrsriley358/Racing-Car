@@ -1,0 +1,109 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package carracing;
+
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Rectangle;
+
+/**
+ *
+ * @author Zachary Hinote
+ */
+public class CarPane extends Pane {
+    private double StartingX = 0;
+    private double StartingY = -5;
+    private double barrier = 300;
+    
+    private Rectangle rectangle = new Rectangle(StartingX, StartingY, 50, 10);
+    private double w = 10;
+    private double h = 10;
+    private Circle wheel1 = new Circle(w, h, Math.min(w, h) * 0.45);
+    private double Wheel1CenterX = 15;
+    private Circle wheel2 = new Circle(w, h, Math.min(w, h) * 0.45);
+    private double Wheel2CenterX = 35;
+    private Polygon roof = new Polygon(new double[]{
+    StartingX + 10, StartingY, StartingX + 20, StartingY - 10, StartingX + 30, StartingY - 10, StartingX + 40, StartingY
+    });
+    
+    
+    
+    public CarPane() {
+        
+        rectangle.setStroke(Color.GREEN);
+        rectangle.setFill(Color.GREEN);
+        wheel1.setStroke(Color.BLACK);
+        wheel1.setFill(Color.BLACK);
+        wheel1.setCenterX(Wheel1CenterX);
+        wheel2.setStroke(Color.BLACK);
+        wheel2.setFill(Color.BLACK);
+        wheel2.setCenterX(Wheel2CenterX);
+        roof.setStroke(Color.RED);
+        roof.setFill(Color.RED);
+        
+        getChildren().addAll(wheel1, wheel2, rectangle, roof);
+        
+        
+    }
+    
+    public double increment = 1;
+    public double BaselineIncrement = 1;
+    
+    public void move() {
+        rectangle.setX(StartingX + increment);
+        wheel1.setCenterX(Wheel1CenterX + increment);
+        wheel2.setCenterX(Wheel2CenterX + increment);
+        roof.getPoints().setAll(StartingX + 10 + increment, StartingY, StartingX + 20 + increment, StartingY - 10, StartingX + 30 + increment, StartingY - 10, StartingX + 40 + increment, StartingY);
+        
+        this.StartingX += increment;
+        this.Wheel1CenterX += increment;
+        this.Wheel2CenterX += increment;
+        
+
+        
+        if (StartingX > (barrier - 50)) {
+            reverse();
+        }
+        if (StartingX < 0) {
+            reverse();
+        }
+        
+        
+        
+        
+    }
+    
+    public void reverse() {
+        increment = -increment;
+    }
+    public void setBarrier(double width) {
+        barrier = width;
+    }
+    public void increaseSpeed() {
+        if (increment < 1) {
+            increment -= 1;
+        }
+        else if (increment > -1) {
+            increment += 1;
+        }
+    }
+    public void decreaseSpeed() {
+        if (increment < -1) {
+            increment += 1;
+        }
+        else if (increment > 1) {
+            increment -= 1;
+        }
+        
+    }
+    
+    
+    
+    
+}
+
