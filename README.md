@@ -10,7 +10,7 @@ The key event is meant to be triggered by the up and down arrow keys, to speed u
 
 This image will display as your example output. Name the image README.jpg in your project folder.
 
-![Sample Output](README.jpg)
+![Sample Output](README.JPG)
 
 ## Analysis Steps
 
